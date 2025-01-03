@@ -2,20 +2,20 @@
 
   const mongoose = require('mongoose');
   const dbName = process.env.DB_NAME;
-  const username = process.env.DB_USER ;
+//   const username = process.env.DB_USER ;
   const ip = process.env.ip;
   const dbport = process.env.dbport;
-  const password = encodeURIComponent(process.env.DB_PASSWORD)
+//   const password = encodeURIComponent(process.env.DB_PASSWORD)
   // const uri = `mongodb://${username}:${password}@${ip}:${dbport}/${dbName}?authSource=admin`;
   
-  const uri = `mongodb://${ip}:${dbport}/${dbName}?authSource=admin`;
+  const uri = `mongodb://${ip}:${dbport}/${dbName}`;
 
   mongoose.set("strictQuery", false);
   mongoose.connect(uri, {
   
       useNewUrlParser: true
   }).then(() => {
-      console.log('mongoose connected successfully',{dbName})
+      console.log('mongoose connected successfully')
       // user_data.getAdvance()
   }).catch((e) => {
       console.log("mongoose error", e)
