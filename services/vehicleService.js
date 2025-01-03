@@ -54,21 +54,19 @@ exports.findVehicleByIdService = async (vehicleId) => {
     if (!vehicleId) {
         throw new Error('Vehicle ID is required.');
     }
-
     try {
-        // Find the vehicle by its ID and populate the agency name
-        const vehicle = await Vehicle.findOne({ vehicleId:vehicleId }) 
+        const vehicle = await Vehicle.findOne({ vehicleId: vehicleId });
 
         if (!vehicle) {
             throw new Error('Vehicle not found.');
         }
-
-        return vehicle; // Return the vehicle document with populated agency name
+        return vehicle; // Return the vehicle document
     } catch (error) {
-        console.error('Error in findVehicleById service:', error);
-        throw new Error('Failed to find vehicle by ID.');
+        console.error('Error in findVehicleById service:', error.message);
+        throw error;
     }
 };
+
 
 
 // Get all vehicles
