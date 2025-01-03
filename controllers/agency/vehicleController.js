@@ -6,7 +6,7 @@ class VEHICLE {
     async createVehicle(req, res) {
         try {
             const agencyId = req.user.agencyId; // Get the agencyId from the authenticated user (JWT token)
-
+            console.log('Agency ID:', req.user.agencyId);
             const savedVehicle = await vehicleService.createVehicleService(req.body, req.files, agencyId);
 
             res.status(201).json({

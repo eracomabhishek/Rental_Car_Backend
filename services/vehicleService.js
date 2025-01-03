@@ -23,7 +23,7 @@ exports.createVehicleService = async (data, files, agencyId) => {
     const images = files.map((file) => file.path);
 
     // Check if the agency exists
-    const agency = await Agency.find({ agencyId });
+    const agency = await Agency.find({ agencyId:agencyId });
     if (!agency) {
         throw new Error('Agency not found.');
     }
