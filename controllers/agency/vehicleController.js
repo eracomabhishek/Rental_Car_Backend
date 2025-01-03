@@ -96,7 +96,9 @@ class VEHICLE {
     // Method to get vehicles by agency ID
     async getVehiclesByAgency(req, res) {
         try {
-            const vehicles = await vehicleService.getVehiclesByAgencyService(req.params.agencyUid);
+            console.log("getting",req.params.agencyId)
+            const agencyId = req.user.agencyId;
+            const vehicles = await vehicleService.getVehiclesByAgencyService(agencyId);
             res.status(200).json({ message: 'Vehicles retrieved successfully', data: vehicles });
         } catch (error) {
             res.status(500).json({ message: error.message });

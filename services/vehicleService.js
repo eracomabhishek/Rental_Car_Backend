@@ -105,8 +105,8 @@ exports.getRentedVehicleService = async (agencyId) => {
 };
 
 // Get vehicles by agency ID
-exports.getVehiclesByAgencyService = async (agencyUid) => {
-    const vehicles = await Vehicle.find({ agencyUid }).populate('agencyUid', 'agencyName');
+exports.getVehiclesByAgencyService = async (agencyId) => {
+    const vehicles = await Vehicle.find({ agencyId:agencyId });
     if (vehicles.length === 0) {
         throw new Error('No vehicles found for this agency.');
     }
