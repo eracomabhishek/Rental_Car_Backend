@@ -7,11 +7,18 @@ class BOOKING {
             const { customerId } = req.user; 
             // add customerId in body
             req.body.customerId = customerId;
-            const { vehicleId, agencyId, startDate, endDate, totalCost } = req.body;
+
+            const { vehicleId, agencyId, startDate, endDate, totalCost, Days, Hours } = req.body;
     
             // Validate required fields
             if (!vehicleId || !agencyId || !startDate || !endDate || !totalCost) {
                 return res.status(400).json({ message: 'All fields are required.' });
+            }
+             // Validate pricePerDay or pricePerHour
+            if ((!Days || Days <= 0) && (!Hours || Hours <= 0)) {
+                return res.status(400).json({
+                    message: 'At least one of Day or Hour must be provided and must be a positive number.'
+                });
             }
             // Validate date range
             if (new Date(startDate) >= new Date(endDate)) {
@@ -26,7 +33,7 @@ class BOOKING {
     
             // Step 4: Return success response
             res.status(201).json({
-                message: 'Booking created successfully',
+                message: 'Booking created successfully...',
                 data: newBooking,
             });
         } catch (error) {

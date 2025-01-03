@@ -1,5 +1,6 @@
 const Booking = require('../models/Booking');
 const Customer = require('../models/Customer');
+const Vehicle = require('../models/Vehicle')
 
 // Create a new booking
 exports.createBookingService = async ({
@@ -8,6 +9,8 @@ exports.createBookingService = async ({
     agencyId,
     startDate,
     endDate,
+    Hours,
+    Days,
     totalCost
 }) => {
     // Ensure that customerId, vehicleId, and agencyId are numbers
@@ -15,10 +18,6 @@ exports.createBookingService = async ({
     const validVehicleId = Number(vehicleId);
     const validAgencyId = Number(agencyId);
 
-    // Validate required fields (this is redundant as it's already handled in controller, but keeping here for safety)
-    if (!validCustomerId || !validVehicleId || !validAgencyId || !startDate || !endDate || !totalCost) {
-        throw new Error('All fields are required.');
-    }
 
     const newBooking = new Booking({
         customerId: validCustomerId,
@@ -26,6 +25,8 @@ exports.createBookingService = async ({
         agencyId: validAgencyId,
         startDate,
         endDate,
+        Days: Days || null, // Optional field
+        Hours: Hours || null, // Optional field
         totalCost,
         paymentStatus: 'Pending',
         bookingStatus: 'Confirmed'
@@ -135,7 +136,27 @@ exports.getBookingDetailsByDateService = async (startDate, endDate) => {
 };
 
 
+exports.getUserRentedVehiclesService = async (customerId) => {
+    // Fetch bookings for the customer
+    const bookings = await Booking.find({ customerId }).lean();
 
+    if (!bookings || bookings.length === 0) {
+        throw new Error('No rented vehicles found.');
+    }
+
+    // Fetch vehicle details for each booking
+    const vehicleIds = bookings.map((booking) => booking.vehicleId);
+    const vehicles = await Vehicle.find({ vehicleId: { $in: vehicleIds } }).lean();
+
+    // Combine bookings with vehicle details
+    return bookings.map((booking) => {
+        const vehicle = vehicles.find((v) => v.vehicleId === booking.vehicleId);
+        return {
+            ...booking,
+            vehicleDetails: vehicle || null,
+        };
+    });
+};
 
 
 

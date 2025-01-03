@@ -26,6 +26,14 @@ const BookingSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    Days: {
+        type: Number,
+        default: null, // Optional field
+    },
+    Hours: {
+        type: Number,
+        default: null, // Optional field
+    },
     totalCost: {
         type: Number,
         required: true

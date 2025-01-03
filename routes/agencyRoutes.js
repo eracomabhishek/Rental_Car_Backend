@@ -20,8 +20,8 @@ router.get('/get-all-vehicles', vehicleController.getVehicles);                 
 router.get('/get-vehicle-By/:vehicleId', vehicleController.getVehicleById);           // get vehicle by id
 router.get('/vehicles-with-agency/:agencyId', verifyToken, vehicleController.getVehiclesByAgency); //... Find vehicles with agency id
 router.post('/vehicle/delete/:vehicleId', vehicleController.deleteVehicle);           // for delete vehicle
-router.put('/vehicles/update/:registrationNumber', upload.array('images', 5), vehicleController.updateVehicle);           // update vehic    le
-router.get('/get-vehicle/:registrationNumber', vehicleController.getVehicleByRegistrationNumber) // fetch vehicle by registration number
+router.put('/vehicles/update/:vehicleId', upload.array('images', 5), vehicleController.updateVehicle);           // update vehic    le
+router.get('/get-vehicle/:', vehicleController.getVehicleByRegistrationNumber) // fetch vehicle by registration number
 router.get('/get-rented-Vehicle/:agencyId', vehicleController.getRentedVehicles);
 
 

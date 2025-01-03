@@ -41,7 +41,7 @@ class VEHICLE {
     async getRentedVehicles(req, res) {
         try {  
             const agencyId = req.params.agencyId;
-            console.log("agency id", agencyId);
+            // console.log("agency id", agencyId);
             const vehicles = await vehicleService.getRentedVehicleService(agencyId);
             if (!vehicles || vehicles.length === 0) {
                 return res.status(404).json({ message: 'No vehicles found' });
@@ -58,8 +58,13 @@ class VEHICLE {
         }
     }
 
+<<<<<<< HEAD
      // Method to get vehicle by ID
      async getVehicleById(req, res) {
+=======
+    // Method to get vehicle by ID
+    async getVehicleById(req, res) {
+>>>>>>> 7cff781b796f953438262057f68942dac39b058a
         const { vehicleId } = req.params;
         // console.log("Requested Vehicle ID:", vehicleId);
     
@@ -84,6 +89,7 @@ class VEHICLE {
             res.status(500).json({ message: error.message });
         }
     }
+    
 
     // Method to get vehicles by agency ID
     async getVehiclesByAgency(req, res) {
@@ -113,7 +119,7 @@ class VEHICLE {
             console.log('Request body:', req.body); // To check the body content
             console.log('Request files:', req.files); // To check the body files
 
-            const updatedVehicle = await vehicleService.updateVehicleService(req.params.registrationNumber, req.body, req.files);
+            const updatedVehicle = await vehicleService.updateVehicleService(req.params.vehicleId, req.body, req.files);
 
             res.status(200).json({
                 message: 'Vehicle updated successfully',
