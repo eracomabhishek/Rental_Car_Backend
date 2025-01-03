@@ -61,15 +61,11 @@ class VEHICLE {
     // Method to get vehicle by ID
     async getVehicleById(req, res) {
         const { vehicleId } = req.params;
-        console.log("Requested Vehicle ID:", vehicleId);
+        // console.log("Requested Vehicle ID:", vehicleId);
     
         if (!vehicleId) {
-            return res.status(400).json({
-                message: 'Vehicle ID is required.',
-                data: null
-            });
+            return res.status(400).json({ message: 'Vehicle ID is required.' });
         }
-    
         try {
             const vehicle = await vehicleService.findVehicleByIdService(vehicleId);
             if (!vehicle) {
@@ -82,17 +78,10 @@ class VEHICLE {
             console.error('Error in getVehicleById controller:', error);
             if (error.message === 'Vehicle not found.') {
                 // If the error is "Vehicle not found", return 404
-                return res.status(404).json({
-                    message: 'Vehicle not found.',
-                    data: null
-                });
+                return res.status(404).json({ message: 'Vehicle not found.'});
             }
-    
             // For other errors, return 500
-            res.status(500).json({
-                message: error.message || 'An error occurred while retrieving the vehicle.',
-                data: null
-            });
+            res.status(500).json({ message: error.message });
         }
     }
     
