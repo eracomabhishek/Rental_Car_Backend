@@ -1,4 +1,5 @@
 const customerService = require('../../services/customerService');
+const bookingService = require('../../services/bookingService')
 const jwt = require('jsonwebtoken');
 
 // Class-based controller
@@ -64,6 +65,25 @@ class CUSTOMER {
         } catch (error) {
             console.error('Profile update error:', error.message);
             res.status(400).json({ message: error.message });
+        }
+    }
+    
+    async customerRentVehicle(req,res) {
+        try {
+            const { customerId } = req.user; // Extract customerId from the authenticated user (JWT)
+    
+            // Fetch rented vehicles for the user
+            const rentedVehicles = await bookingService.getUserRentedVehiclesService(customerId);
+    
+            res.status(200).json({
+                message: 'Rented vehicles retrieved successfully',
+                data: rentedVehicles,
+            });
+        } catch (error) {
+            console.error('Error fetching rented vehicles:', error);
+            res.status(500).json({
+                message: error.message,
+            });
         }
     }
 }

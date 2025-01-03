@@ -57,7 +57,7 @@ exports.findVehicleByIdService = async (vehicleId) => {
 
     try {
         // Find the vehicle by its ID and populate the agency name
-        const vehicle = await Vehicle.findById(vehicleId).populate('agencyId', 'agencyName');
+        const vehicle = await Vehicle.findOne({ vehicleId:vehicleId }) 
 
         if (!vehicle) {
             throw new Error('Vehicle not found.');
@@ -123,8 +123,8 @@ exports.getVehicleByRegistrationNumberService = async (registrationNumber) => {
 };
 
 // Update vehicle details
-exports.updateVehicleService = async (registrationNumber, updates, files) => {
-    console.log("Received registrationNumber:", registrationNumber); // Log the registration number to check the value
+exports.updateVehicleService = async (vehicleId, updates, files) => {
+    console.log("Received vehicleId:", vehicleId); // Log the registration number to check the value
 
     const {
         vehicleName,
@@ -137,13 +137,13 @@ exports.updateVehicleService = async (registrationNumber, updates, files) => {
     } = updates;
 
     // Validate registration number
-    if (!registrationNumber) {
+    if (!vehicleId) {
         throw new Error('Registration number is required.');
     }
 
     // Find the vehicle by registration number with case-insensitive search
     const vehicle = await Vehicle.findOne({
-        registrationNumber: { $regex: new RegExp(`^${registrationNumber}$`, 'i') }, // Case-insensitive match
+        vehicleId: { $regex: new RegExp(`^${vehicleId}$`, 'i') }, // Case-insensitive match
     });
 
     console.log("Found vehicle:", vehicle); // Log the result of the query

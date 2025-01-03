@@ -16,7 +16,7 @@ const isValidPhoneNumber = (phone) => {
 
 // Utility function for password validation
 const isValidPassword = (password) => {
-    const passwordRegex = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex =  /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/        ;
     return passwordRegex.test(password);
 };
 

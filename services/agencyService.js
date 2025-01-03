@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const Agency = require('../models/Agency');
-const tokenBlacklist = new Set(); // Temporary in-memory blacklist. Use a persistent store in production.
+
 
 // Utility function for email validation
 const isValidEmail = (email) => {
@@ -128,22 +128,6 @@ exports.authenticateAgency = async (contactEmail, password) => {
     }
 
     return agency; 
-};
-
-// logout service 
-
-exports.logoutAgencyService = (token) => {
-    if (!token) {
-        throw new Error('Token is required for logout.');
-    }
-
-    // Add the token to the blacklist
-    tokenBlacklist.add(token);
-};
-
-
-exports.isTokenBlacklisted = (token) => {
-    return tokenBlacklist.has(token);
 };
 
 
