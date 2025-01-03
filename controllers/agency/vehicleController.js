@@ -58,13 +58,8 @@ class VEHICLE {
         }
     }
 
-<<<<<<< HEAD
-     // Method to get vehicle by ID
-     async getVehicleById(req, res) {
-=======
     // Method to get vehicle by ID
     async getVehicleById(req, res) {
->>>>>>> 7cff781b796f953438262057f68942dac39b058a
         const { vehicleId } = req.params;
         // console.log("Requested Vehicle ID:", vehicleId);
     
